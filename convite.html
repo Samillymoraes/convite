@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Janta Comigo?</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Tela inicial (igual ao seu código) -->
+    <div id="telaInicial" class="container">
+      <div class="hearts">
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i>
+      </div>
+
+      <h1>Janta Comigo?</h1>
+
+      <div class="buttons-container">
+        <button id="btnSim" class="btn btn-sim">
+          <i class="fas fa-check"></i> SIM
+        </button>
+        <button id="btnNao" class="btn btn-nao">
+          <i class="fas fa-times"></i> NÃO
+        </button>
+      </div>
+
+      <div class="message hidden">
+        <h2>Que maravilha! ❤️</h2>
+        <p>Estou ansioso(a) para nosso jantar especial!</p>
+        <p class="details">Enviarei os detalhes em breve...</p>
+        <button id="btnReset" class="btn btn-reset">Voltar</button>
+      </div>
+    </div>
+
+    <!-- Convite expandido (inicialmente oculto) -->
+    <div id="conviteExpandido" class="convite-expandido hidden">
+      <button class="btn-voltar" onclick="voltarParaInicio()">
+        <i class="fas fa-arrow-left"></i> Voltar
+      </button>
+
+      <div class="header">
+        <div class="hearts">
+          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart"></i>
+        </div>
+
+        <h1>Nosso Jantar Especial !</h1>
+        <p class="subtitle">Uma noite para celebrarmos nossos 3 meses juntos</p>
+      </div>
+
+      <!-- Substitua todo o carrossel atual por este código: -->
+
+      <!-- Carrossel de fotos -->
+      <div class="carousel-container">
+        <div class="carousel">
+          <div class="carousel-inner">
+            <!-- IMAGEM 1 - Substitua pelo URL da sua primeira foto -->
+            <div class="carousel-item active">
+              <img
+                src="WhatsApp Image 2025-09-02 at 22.06.49.jpeg"
+                alt="Uma das nossas primeiras caminhadas juntos, meus olhos já brilhavam por você!"
+                class="carousel-image"
+              />
+            </div>
+
+            <!-- IMAGEM 2 - Substitua pelo URL da sua segunda foto -->
+            <div class="carousel-item">
+              <img
+                src="WhatsApp Image 2025-09-02 at 22.06.50 (1).jpeg"
+                alt="Quando você conheceu alguns dos meus amigos, e eles já te adoraram!"
+                class="carousel-image"
+              />
+            </div>
+
+            <!-- IMAGEM 3 - Substitua pelo URL da sua terceira foto -->
+            <div class="carousel-item">
+              <img
+                src="WhatsApp Image 2025-09-02 at 22.06.50.jpeg"
+                alt="Sempre me aceitou do jeitinho que sou, e eu amo isso em você!"
+                class="carousel-image"
+              />
+            </div>
+
+            <!-- IMAGEM 4 - Substitua pelo URL da sua quarta foto -->
+            <div class="carousel-item">
+              <img
+                src="WhatsApp Image 2025-09-02 at 22.06.51 (3).jpeg"
+                alt="O dia mais feliz e mais lindo do nosso relacionamento!"
+                class="carousel-image"
+              />
+            </div>
+
+            <!-- IMAGEM 5 - Substitua pelo URL da sua quinta foto -->
+            <div class="carousel-item">
+              <img
+                src="WhatsApp Image 2025-09-02 at 22.11.08 (3).jpeg"
+                alt="O jeitinho que você me olha, me faz sentir a pessoa mais amada do mundo!"
+                class="carousel-image"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-control prev" onclick="moveSlide(-1)">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-control next" onclick="moveSlide(1)">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div class="carousel-indicators">
+          <span class="indicator active" onclick="goToSlide(0)"></span>
+          <span class="indicator" onclick="goToSlide(1)"></span>
+          <span class="indicator" onclick="goToSlide(2)"></span>
+          <span class="indicator" onclick="goToSlide(3)"></span>
+          <span class="indicator" onclick="goToSlide(4)"></span>
+          <span class="indicator" onclick="goToSlide()"></span>
+        </div>
+      </div>
+
+      <!-- Adicione este estilo CSS para as imagens: -->
+      <style>
+        .carousel-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+
+        .carousel-item {
+          min-width: 100%;
+          height: 400px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #f8f8f8;
+        }
+      </style>
+
+      <script>
+        // Controle do carrossel - Adicione este código JavaScript
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".carousel-item");
+        const indicators = document.querySelectorAll(".indicator");
+        const carouselInner = document.querySelector(".carousel-inner");
+
+        function showSlide(n) {
+          // Esconder todos os slides
+          slides.forEach((slide) => slide.classList.remove("active"));
+          indicators.forEach((indicator) =>
+            indicator.classList.remove("active")
+          );
+
+          // Atualizar slide atual
+          currentSlide = (n + slides.length) % slides.length;
+
+          // Mostrar slide atual
+          slides[currentSlide].classList.add("active");
+          indicators[currentSlide].classList.add("active");
+
+          // Mover o carousel-inner
+          carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function moveSlide(n) {
+          showSlide(currentSlide + n);
+        }
+
+        function goToSlide(n) {
+          showSlide(n);
+        }
+
+        // Auto-avanço do carrossel
+        setInterval(() => {
+          moveSlide(1);
+        }, 5000);
+      </script>
+
+      <!-- Detalhes do jantar -->
+      <div class="details">
+        <h2>Detalhes do Nosso Jantar</h2>
+
+        <div class="detail-card">
+          <div class="detail-icon">
+            <i class="fas fa-calendar-day"></i>
+          </div>
+          <div class="detail-content">
+            <h3>Quando</h3>
+            <p>Segunda, 08 de Setembro</p>
+            <p>Às 19:30 horas</p>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="detail-content">
+            <h3>Onde</h3>
+            <p>My home</p>
+            <p>Você sabe direitinho onde é</p>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <div class="detail-content">
+            <h3>Menu Especial</h3>
+
+            <p>Prato principal: você vai gostar, eu tenho certeza!</p>
+            <p>Sobremesa: A sua preferida</p>
+            <p>Trazer: Bebida (vinho:quinta do morgado bordô suave)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Substitua toda a seção de música por este código: -->
+
+<!-- Link para a música no YouTube -->
+<div class="music-player">
+    <h3>Essa música sempre vai me lembrar você!</h3>
+    
+    <div class="music-card">
+        <div class="music-icon">
+            <i class="fab fa-youtube"></i>
+        </div>
+        
+        <div class="music-content">
+            <h4>Hotel California - Eagles</h4>
+            <p class="music-description">
+                Bem como California é a luz dourada para quem a enxerga, 
+                você é a luz dourada dos meus olhos.
+            </p>
+            
+            <a href="https://www.youtube.com/watch?v=Br3KkvgMAZY" target="_blank" class="youtube-link">
+                <i class="fas fa-play-circle"></i> Ouvir no YouTube
+            </a>
+        </div>
+    </div>
+    
+    <p class="romantic-message">
+        Clique para ouvir nossa música enquanto relembramos nossos momentos especiais...
+    </p>
+</div>
+
+<style>
+    .music-player {
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        padding: 25px;
+        text-align: center;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .music-player h3 {
+        color: #e84393;
+        font-family: 'Dancing Script', cursive;
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+    
+    .music-card {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .music-icon {
+        background: #ff0000;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+        font-size: 1.8rem;
+    }
+    
+    .music-content {
+        text-align: left;
+        flex-grow: 1;
+    }
+    
+    .music-content h4 {
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 1.3rem;
+    }
+    
+    .music-description {
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+    
+    .youtube-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #ff0000;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+    }
+    
+    .youtube-link:hover {
+        background: #cc0000;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(255, 0, 0, 0.4);
+    }
+    
+    .romantic-message {
+        margin-top: 20px;
+        color: #e84393;
+        font-style: italic;
+        font-size: 0.95rem;
+    }
+    
+    @media (max-width: 600px) {
+        .music-card {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .music-icon {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+        
+        .music-content {
+            text-align: center;
+        }
+    }
+</style>
+
+      <!-- Mensagem final -->
+      <div class="final-message">
+        <h2>Mal posso esperar para este momento com você!</h2>
+        <p>
+          Este jantar será especial porque estaremos juntos, compartilhando não
+          apenas uma refeição, mas momentos únicos que fortalecem nossa conexão. Espero que seja mais um dos
+          momentos no qual percebemos o quantos somos felizes juntos! Te amo paixão!
+        </p>
+        <div class="signature">
+          <p>Com amor,</p>
+          <p class="name">[S.M]</p>
+          <p class="name">[Sua maranhense ou Samilly Moraes]</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Elementos da tela inicial
+      const btnNao = document.getElementById("btnNao");
+      const btnSim = document.getElementById("btnSim");
+      const message = document.querySelector(".message");
+      const btnReset = document.getElementById("btnReset");
+      const container = document.querySelector(".container");
+      const hearts = document.querySelectorAll(".fa-heart");
+      const telaInicial = document.getElementById("telaInicial");
+      const conviteExpandido = document.getElementById("conviteExpandido");
+
+      // Número de tentativas de clique no NÃO
+      let tentativas = 0;
+      const frasesNegativa = [
+        "Tem certeza?",
+        "Pense bem!",
+        "Você vai se arrepender!",
+        "Última chance!",
+        "Clique no SIM! 😊",
+      ];
+
+      // Função para mover o botão Não
+      function moverBtnNao() {
+        const x = Math.random() * (window.innerWidth - btnNao.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btnNao.offsetHeight);
+
+        btnNao.style.position = "absolute";
+        btnNao.style.left = `${x}px`;
+        btnNao.style.top = `${y}px`;
+
+        // Alterar texto após algumas tentativas
+        if (tentativas < frasesNegativa.length) {
+          btnNao.innerHTML = `<i class="fas fa-times"></i> ${frasesNegativa[tentativas]}`;
+        }
+
+        tentativas++;
+      }
+
+      // Event listeners para a tela inicial
+      btnNao.addEventListener("mouseover", moverBtnNao);
+      btnNao.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+        moverBtnNao();
+      });
+      btnNao.addEventListener("click", moverBtnNao);
+
+      btnSim.addEventListener("click", function () {
+        // Esconde a tela inicial e mostra o convite expandido
+        telaInicial.classList.add("hidden");
+        conviteExpandido.classList.remove("hidden");
+
+        // Inicia os efeitos do convite
+        typeEffect();
+        criarCoracoes();
+      });
+
+      btnReset.addEventListener("click", function () {
+        message.classList.add("hidden");
+        document.querySelector(".buttons-container").classList.remove("hidden");
+        tentativas = 0;
+        btnNao.innerHTML = '<i class="fas fa-times"></i> NÃO';
+      });
+
+      // Função para voltar para a tela inicial
+      function voltarParaInicio() {
+        conviteExpandido.classList.add("hidden");
+        telaInicial.classList.remove("hidden");
+      }
+
+      // Função para criar efeito de confete
+      function criarConfete() {
+        const colors = [
+          "#ff6b6b",
+          "#ff9e6b",
+          "#ffde6b",
+          "#6bff9e",
+          "#6bc7ff",
+          "#9d6bff",
+          "#ff6bc7",
+        ];
+        const confettiCount = 100;
+
+        for (let i = 0; i < confettiCount; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * 100 + "vw";
+          confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDelay = Math.random() * 5 + "s";
+          document.body.appendChild(confetti);
+
+          // Remover após animação
+          setTimeout(() => {
+            confetti.remove();
+          }, 5000);
+        }
+      }
+
+      // Adicionar alguns corações flutuantes de fundo
+      for (let i = 0; i < 15; i++) {
+        const floatingHeart = document.createElement("i");
+        floatingHeart.className = "fas fa-heart floating-heart";
+        floatingHeart.style.left = Math.random() * 100 + "vw";
+        floatingHeart.style.animationDelay = Math.random() * 5 + "s";
+        floatingHeart.style.fontSize = Math.random() * 20 + 10 + "px";
+        floatingHeart.style.opacity = Math.random() * 0.5 + 0.1;
+        document.body.appendChild(floatingHeart);
+      }
+
+    
+
+      // Adicionar corações flutuantes
+      function criarCoracoes() {
+        for (let i = 0; i < 15; i++) {
+          const floatingHeart = document.createElement("i");
+          floatingHeart.className = "fas fa-heart floating-heart";
+          floatingHeart.style.left = Math.random() * 100 + "vw";
+          floatingHeart.style.animationDelay = Math.random() * 5 + "s";
+          floatingHeart.style.fontSize = Math.random() * 20 + 10 + "px";
+          floatingHeart.style.opacity = Math.random() * 0.5 + 0.1;
+          document.body.appendChild(floatingHeart);
+        }
+      }
+    </script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        color: #5a3e5c;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* Estilos da tela inicial */
+      .container {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        max-width: 90%;
+        width: 500px;
+        position: relative;
+        z-index: 1;
+      }
+
+      h1 {
+        font-family: "Dancing Script", cursive;
+        font-size: 3.5rem;
+        margin-bottom: 30px;
+        color: #e84393;
+      }
+
+      h2 {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #e84393;
+      }
+
+      .buttons-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        position: relative;
+      }
+
+      .btn {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-sim {
+        background: linear-gradient(to right, #e84393, #fd79a8);
+        color: white;
+        box-shadow: 0 4px 15px rgba(232, 67, 147, 0.4);
+      }
+
+      .btn-sim:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(232, 67, 147, 0.6);
+      }
+
+      .btn-nao {
+        background: linear-gradient(to right, #636e72, #b2bec3);
+        color: white;
+        box-shadow: 0 4px 15px rgba(99, 110, 114, 0.4);
+      }
+
+      .btn-nao:hover {
+        background: linear-gradient(to right, #b2bec3, #636e72);
+      }
+
+      .btn-reset {
+        background: linear-gradient(to right, #00b894, #55efc4);
+        color: white;
+        margin: 20px auto 0;
+        box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+      }
+
+      .message {
+        margin-top: 20px;
+      }
+
+      .details {
+        font-style: italic;
+        margin: 15px 0;
+      }
+
+      .hearts {
+        margin-bottom: 20px;
+      }
+
+      .fa-heart {
+        color: #e84393;
+        margin: 0 5px;
+        font-size: 2rem;
+      }
+
+      .pulse {
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .floating-heart {
+        position: absolute;
+        color: rgba(232, 67, 147, 0.5);
+        z-index: 0;
+        animation: float 8s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(20deg);
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background-color: #ff6b6b;
+        border-radius: 50%;
+        top: -10px;
+        animation: fall 5s linear infinite;
+        z-index: 2;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Estilos do convite expandido */
+      .convite-expandido {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        max-width: 800px;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        margin: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .header {
+        text-align: center;
+        padding: 30px 20px;
+        background: linear-gradient(to right, #e84393, #fd79a8);
+        color: white;
+        position: relative;
+      }
+
+      .subtitle {
+        font-style: italic;
+        opacity: 0.9;
+      }
+
+      .carousel-container {
+        position: relative;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 600px;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .carousel {
+        width: 100%;
+        position: relative;
+      }
+
+      .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+
+      .carousel-item {
+        min-width: 100%;
+        height: 350px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f8f8f8;
+      }
+
+      .placeholder-image {
+        text-align: center;
+        color: #e84393;
+      }
+
+      .placeholder-image i {
+        font-size: 4rem;
+        margin-bottom: 15px;
+      }
+
+      .carousel-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(232, 67, 147, 0.7);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s;
+      }
+
+      .carousel-control:hover {
+        background: rgba(232, 67, 147, 1);
+      }
+
+      .prev {
+        left: 10px;
+      }
+
+      .next {
+        right: 10px;
+      }
+
+      .carousel-indicators {
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .indicator.active {
+        background: white;
+      }
+
+      .details {
+        padding: 30px 20px;
+      }
+
+      .detail-card {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .detail-icon {
+        background: #fd79a8;
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .detail-icon i {
+        font-size: 1.2rem;
+      }
+
+      .detail-content h3 {
+        margin-bottom: 8px;
+        color: #e84393;
+      }
+
+      .music-player {
+        background: linear-gradient(to right, #00b894, #55efc4);
+        padding: 20px;
+        text-align: center;
+        color: white;
+      }
+
+      .music-player h3 {
+        margin-bottom: 15px;
+        font-family: "Dancing Script", cursive;
+        font-size: 1.8rem;
+      }
+
+      .player-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .control-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s;
+      }
+
+      .control-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .song-info {
+        flex-grow: 1;
+      }
+
+      .song-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .progress {
+        width: 30%;
+        height: 100%;
+        background: white;
+        border-radius: 3px;
+      }
+
+      .final-message {
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .signature {
+        margin-top: 30px;
+      }
+
+      .signature .name {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.8rem;
+        color: #e84393;
+        margin-top: 5px;
+      }
+
+      .btn-voltar {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: background 0.3s;
+        z-index: 10;
+      }
+
+      .btn-voltar:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .carousel-item {
+          height: 300px;
+        }
+
+        .detail-card {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .detail-icon {
+          margin-right: 0;
+          margin-bottom: 15px;
+        }
+
+        .player-controls {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .container {
+          padding: 25px;
+        }
+
+        .buttons-container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .carousel-item {
+          height: 250px;
+        }
+
+        .detail-icon {
+          width: 40px;
+          height: 40px;
+        }
+
+        .detail-icon i {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </body>
+</html>
